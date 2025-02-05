@@ -15,7 +15,7 @@ if(isset($message)){
 
    <section class="flex">
      
-      <a href="dashboard.php" class="logo">ADMIN</a>
+      <a href="dashboard.php" class="logo">TEACHER</a>
 
       <form action="search_page.php" method="post" class="search-form">
          <input type="text" name="search" placeholder="search here..." required maxlength="100">
@@ -40,10 +40,10 @@ if(isset($message)){
          <h3><?= $fetch_profile['name']; ?></h3>
          <span><?= $fetch_profile['profession']; ?></span>
          <a href="profile.php" class="btn">view profile</a>
-         <div class="flex-btn">
+         <!-- <div class="flex-btn">
             <a href="login.php" class="option-btn">login</a>
             <a href="register.php" class="option-btn">register</a>
-         </div>
+         </div> -->
          <a href="../components/admin_logout.php" onclick="return confirm('logout from this website?');" class="delete-btn">logout</a>
          <?php
             }else{
