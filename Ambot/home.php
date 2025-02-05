@@ -35,6 +35,7 @@ $total_bookmarked = $select_bookmark->rowCount();
 
    <!-- custom css file link  -->
    <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="css/box.css">
 
 </head>
 <body>
@@ -45,7 +46,7 @@ $total_bookmarked = $select_bookmark->rowCount();
 
 <section class="quick-select">
 
-   <h1 class="heading">Quick Options</h1>
+   <!-- <h1 class="heading">Quick Options</h1> -->
 
    <div class="box-container">
 
@@ -53,7 +54,7 @@ $total_bookmarked = $select_bookmark->rowCount();
 if ($user_id != '') {
 ?>
     <div class="box">
-        <h3 class="title">Likes and Comments</h3>
+        <h3 class="title1">Your Likes and Comments</h3>
         <p>Total Likes: <span><?= $total_likes; ?></span></p>
         <a href="likes.php" class="inline-btn">View Likes</a>
         <p>Total Comments: <span><?= $total_comments; ?></span></p>
@@ -61,6 +62,46 @@ if ($user_id != '') {
         <p>Saved Playlist: <span><?= $total_bookmarked; ?></span></p>
         <a href="bookmark.php" class="inline-btn">View Bookmark</a>
     </div>
+    <section class="courses">
+
+<!-- <h1 class="heading">latest courses</h1> -->
+
+<div class="notification-container">
+<h3 class="title1">Subjects</h3>
+<?php
+  $select_courses = $conn->prepare("SELECT * FROM `playlist` WHERE status = ? ORDER BY date DESC LIMIT 6");
+  $select_courses->execute(['active']);
+  if($select_courses->rowCount() > 0){
+     while($fetch_course = $select_courses->fetch(PDO::FETCH_ASSOC)){
+        $course_id = $fetch_course['id'];
+
+        $select_tutor = $conn->prepare("SELECT * FROM `tutors` WHERE id = ?");
+        $select_tutor->execute([$fetch_course['tutor_id']]);
+        $fetch_tutor = $select_tutor->fetch(PDO::FETCH_ASSOC);
+?>
+  <div class="notification-box info">
+      <img src="uploaded_files/<?= $fetch_tutor['image']; ?>" alt="Tutor Image">
+      <div class="content">
+          <h3>New Subject: <?= $fetch_course['title']; ?></h3>
+          <p>By <?= $fetch_tutor['name']; ?> on <?= $fetch_course['date']; ?></p>
+          <a href="playlist.php?get_id=<?= $course_id; ?>">View Course</a>
+      </div>
+  </div>
+<?php
+     }
+  } else {
+     echo '<p class="empty">No courses added yet!</p>';
+  }
+?>
+</div>
+
+<div class="more-btn">
+   <a href="courses.php" class="inline-option-btn">View More</a>
+</div>
+<div style="margin-bottom: 2cm;"></div>
+
+</section>
+
 <?php
 } else {
     // Redirect to login page if the user is not logged in
@@ -68,97 +109,11 @@ if ($user_id != '') {
     exit(); // Make sure to exit after redirecting
 }
 ?>
-
-
-      <!-- <div class="box">
-         <h3 class="title">Top Strands</h3>
-         <div class="flex">
-            <a href="search_course.php?"><i class="fa-solid fa-users-rectangle"></i><span>HUMSS</span></a>
-            <a href="#"><i class="fa-solid fa-laptop"></i><span>ICT</span></a>
-            <a href="#"><i class="fa-solid fa-microchip"></i><span>TVL</span></a>
-      </div> -->
-
-      <!-- <div class="box">
-         <h3 class="title">Popular Subjects</h3>
-         <div class="flex">
-            <a href="#"><i class="fa-solid fa-globe"></i><span>Philosophy</span></a>
-            <a href="#"><i class="fa-solid fa-photo-film"></i><span>Media Information Literacy</span></a>
-            <a href="#"><i class="fa-solid fa-person-running"></i><span>Physical Education</span></a>
-            <a href="#"><i class="fa-solid fa-atom"></i><span>Earth Life and Science</span></a>
-            <a href="#"><i class="fa-solid fa-palette"></i><span>Contemporary Art</span></a>
-            <a href="#"><i class="fa-solid fa-book"></i><span>Practical Research</span></a>
-         </div>
-      </div> -->
-
-      <div class="box tutor">
-         <h3 class="title"></h3>
-         <p style="text-align: left;"></p>
-         <a href="admin/register.php" class="inline-btn"></a>
-      </div>
+   
 
    </div>
 
 </section>
-
-<!-- quick select section ends -->
-
-<!-- courses section starts  -->
-
-<section class="courses">
-
-   <h1 class="heading">latest courses</h1>
-
-   <div class="box-container">
-
-      <?php
-         $select_courses = $conn->prepare("SELECT * FROM `playlist` WHERE status = ? ORDER BY date DESC LIMIT 6");
-         $select_courses->execute(['active']);
-         if($select_courses->rowCount() > 0){
-            while($fetch_course = $select_courses->fetch(PDO::FETCH_ASSOC)){
-               $course_id = $fetch_course['id'];
-
-               $select_tutor = $conn->prepare("SELECT * FROM `tutors` WHERE id = ?");
-               $select_tutor->execute([$fetch_course['tutor_id']]);
-               $fetch_tutor = $select_tutor->fetch(PDO::FETCH_ASSOC);
-      ?>
-      <div class="box" >
-         <div class="tutor">
-            <img src="uploaded_files/<?= $fetch_tutor['image']; ?>" alt="">
-            <div>
-               <h3><?= $fetch_tutor['name']; ?></h3>
-               <span><?= $fetch_course['date']; ?></span>
-            </div>
-         </div>
-         <img src="uploaded_files/<?= $fetch_course['thumb']; ?>" class="thumb" alt="">
-         <h3 class="title"><?= $fetch_course['title']; ?></h3>
-         <a href="playlist.php?get_id=<?= $course_id; ?>" class="inline-btn">view playlist</a>
-      </div>
-      <?php
-         }
-      }else{
-         echo '<p class="empty">no courses added yet!</p>';
-      }
-      ?>
-
-   </div>
-  
-
-   <div class="more-btn">
-      <a href="courses.php" class="inline-option-btn">view more</a>
-   </div>
-   <div style="margin-bottom: 2cm;"></div>
-
-</section>
-
-<!-- courses section ends -->
-
-
-
-
-
-
-
-
 
 
 

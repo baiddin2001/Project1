@@ -161,6 +161,7 @@ section{
    transform: rotate(90deg);
 }
 
+
 .empty{
    background-color: var(--white);
    border-radius: .5rem;
@@ -377,6 +378,35 @@ section{
    left: -31rem;
 }
 
+
+/* Button Styling */
+.inline-btn, .option-btn {
+   display: inline-block;
+   background-color: #66bb6a; /* Medium green background */
+   color: white;
+   padding: 10px 20px;
+   margin: 8px 0;
+   border-radius: 25px;
+   text-decoration: none;
+   font-size: 14px;
+   transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover Effect */
+.inline-btn:hover, .option-btn:hover {
+   background-color: #388e3c; /* Darker green on hover */
+   transform: translateY(-3px); /* Subtle lift effect */
+   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Active Button Effect */
+.inline-btn:active, .option-btn:active {
+   transform: translateY(0);
+   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
 .quick-select .box-container{
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(2rem, 1fr));
@@ -386,18 +416,18 @@ section{
    
 }
 
-.quick-select .box-container .box{
+.quick-select .box-container{
    border-radius: .5rem;
    background-color: #738c7c;
    padding: 2rem;
 }
 
-.quick-select .box-container .box .title{
+.quick-select .box-container  .title{
    font-size: 2rem;
    color: var(--white);
 }
 
-.quick-select .box-container .box p{
+.quick-select .box-container {
    line-height: 1.5;
    padding-top: 1.5rem;
    color: var(--white);
@@ -405,7 +435,7 @@ section{
    margin: 1rem;
 }
 
-.quick-select .box-container .box p span{
+.quick-select .box-container  {
    color: var(--main-color);
    text-align: center;
 }
@@ -418,38 +448,38 @@ section{
    padding-bottom: 1rem;
 }
 
-.quick-select .box-container .box .flex{
+.quick-select .box-container .flex{
    display: flex;
    flex-wrap: wrap;
    gap: 1rem;
    padding-top: 1rem;
 }
 
-.quick-select .box-container .box .flex a{
+.quick-select .box-container .flex a{
    padding: 1rem 1.5rem;
    border-radius: .5rem;
    font-size: 1.6rem;
    background-color: var(--light-bg);
 }
 
-.quick-select .box-container .box .flex a i{
+.quick-select .box-container .flex a i{
    margin-right: 1rem;
    color: var(--black);
 }
 
-.quick-select .box-container .box .flex a span{
+.quick-select .box-container .flex a span{
    color: var(--light-color);
 }
 
-.quick-select .box-container .box .flex a:hover{
+.quick-select .box-container .flex a:hover{
    background-color: var(--black);
 }
 
-.quick-select .box-container .box .flex a:hover i{
+.quick-select .box-container .flex a:hover i{
    color: var(--white);
 }
 
-.quick-select .box-container .box .flex a:hover span{
+.quick-select .box-container  .flex a:hover span{
    color: var(--white)  ;
 }
 
@@ -461,20 +491,20 @@ section{
    justify-content: center;
 }
 
-.courses .box-container .box{
+.courses .box-container {
    border-radius: .5rem;
    background-color: var(--white);
    padding: 2rem;
 }
 
-.courses .box-container .box .tutor{
+.courses .box-container .tutor{
    margin-bottom: 2rem;
    display: flex;
    align-items: center;
    gap: 2rem;
 }
 
-.courses .box-container .box .tutor img{
+.courses .box-container .tutor img{
    width: 5rem;
    height: 5rem;
    border-radius: 50%;
@@ -482,18 +512,18 @@ section{
    margin-bottom: .5rem;
 }
 
-.courses .box-container .box .tutor h3{
+.courses .box-container .tutor h3{
    font-size: 2rem;
    color: var(--black);
    margin-bottom: .2rem;
 }
 
-.courses .box-container .box .tutor span{
+.courses .box-container .tutor span{
    font-size: 1.5rem;
    color: var(--light-color);
 }
 
-.courses .box-container .box .thumb{
+.courses .box-container .thumb{
    width: 100%;
    border-radius: .5rem;
    height: 20rem;
@@ -501,7 +531,7 @@ section{
    margin-bottom: .3rem;
 }
 
-.courses .box-container .box .title{
+.courses .box-container .title{
    font-size: 2rem;
    color: var(--black);
    margin-top: .5rem;
@@ -564,18 +594,18 @@ section{
    gap: 2rem;
 }
 
-.about .box-container .box i{
+.about .box-container  i{
    font-size: 3rem;
    color: var(--white);
 }
 
-.about .box-container .box h3{
+.about .box-container h3{
    color: var(--white);
    font-size: 2.5rem;
    margin-bottom: .2rem;
 }
 
-.about .box-container .box span{
+.about .box-container span{
    font-size: 1.6rem;
    color: var(--white);
 }
@@ -710,21 +740,21 @@ section{
    justify-content: center;
 }
 
-.videos-container .box-container .box{
+.videos-container .box-container{
    position: relative;
    border-radius: .5rem;
    padding: 2rem;
    background-color: var(--white);
 }
 
-.videos-container .box-container .box img{
+.videos-container .box-container img{
    height: 20rem;
    width: 100%;
    border-radius: .5rem;
    object-fit: cover;
 }
 
-.videos-container .box-container .box i{
+.videos-container .box-container i{
    position: absolute;
    top: 2rem; left: 2rem; right: 2rem;
    height: 20rem;
@@ -738,17 +768,17 @@ section{
    display: none;
 }
 
-.videos-container .box-container .box:hover i{
+.videos-container .box-container:hover i{
    display: flex;
 }
 
-.videos-container .box-container .box h3{
+.videos-container .box-container h3{
    font-size: 2rem;
    color: var(--black);
    margin-top: 1rem;
 }
 
-.videos-container .box-container .box:hover h3{
+.videos-container .box-container:hover h3{
    color: var(--main-color);
 }
 
@@ -971,7 +1001,7 @@ section{
    padding: 2rem;
 }
 
-.edit-comment form .box{
+.edit-comment form{
    width: 100%;
    border-radius: .5rem;
    padding: 1.4rem;
@@ -1025,44 +1055,44 @@ section{
    justify-content: center;
 }
 
-.teachers .box-container .box{
+.teachers .box-container {
    border-radius: .5rem;
    padding: 2rem;
    background-color: var(--light-green);
 }
 
-.teachers .box-container .box .tutor{
+.teachers .box-container .tutor{
    margin-bottom: 1rem;
    display: flex;
    align-items: center;
    gap: 1.5rem;
 }
 
-.teachers .box-container .box .tutor img{
+.teachers .box-container  .tutor img{
    height: 5rem;
    width: 5rem;
    object-fit: cover;
    border-radius: 50%;
 }
 
-.teachers .box-container .box .tutor h3{
+.teachers .box-container  .tutor h3{
    color: var(--white);
    font-size: 2rem;
    margin-bottom: .2rem;
 }
 
-.teachers .box-container .box .tutor span{
+.teachers .box-container .tutor span{
    color: var(--white);
    font-size: 1.5rem;
 }
 
-.teachers .box-container .box p{
+.teachers .box-container  p{
    padding-top: 1rem;
    font-size: 1.7rem;
    color: var(--white);
 }
 
-.teachers .box-container .box p span{
+.teachers .box-container p span{
    color: var(--main-color);
 }
 
@@ -1183,7 +1213,7 @@ section{
    flex-wrap: wrap;
 }
 
-.contact .box-container .box{
+.contact .box-container {
    flex: 1 1 30rem;
    border-radius: .5rem;
    background-color: var(--white);
@@ -1191,19 +1221,19 @@ section{
    text-align: center;
 }
 
-.contact .box-container .box i{
+.contact .box-container i{
    font-size: 3rem;
    color: var(--main-color);
    margin-bottom: 1rem;
 }
 
-.contact .box-container .box h3{
+.contact .box-container h3{
    margin: 1.5rem 0;
    font-size: 2rem;
    color: var(--black);
 }
 
-.contact .box-container .box a{
+.contact .box-container a{
    display: block;
    font-size: 1.7rem;
    color: var(--light-color);
@@ -1211,7 +1241,7 @@ section{
    margin-top: .5rem;
 }
 
-.contact .box-container .box a:hover{
+.contact .box-container a:hover{
    text-decoration: underline;
    color: var(--main-color);
 }
@@ -1253,21 +1283,21 @@ section{
    gap: 1.5rem;
 }
 
-.profile .details .box-container .box{
+.profile .details .box-container {
    background-color: var(--light-bg);
    border-radius: .5rem;
    padding: 2rem;
    flex: 1 1 30rem;
 }
 
-.profile .details .box-container .box .flex{
+.profile .details .box-container  .flex{
    display: flex;
    align-items: center;
    gap: 1.7rem;
    margin-bottom: 1rem;
 }
 
-.profile .details .box-container .box .flex i{
+.profile .details .box-container  .flex i{
    height: 4.5rem;
    width: 4.5rem;
    border-radius: .5rem;
@@ -1278,13 +1308,13 @@ section{
    text-align: center;
 }
 
-.profile .details .box-container .box .flex h3{
+.profile .details .box-container  .flex h3{
    font-size: 2rem;
    color: var(--main-color);
    margin-bottom: .2rem;
 }
 
-.profile .details .box-container .box .flex span{
+.profile .details .box-container  .flex span{
    font-size: 1.5rem;
    color: var(--light-color);
 }
@@ -1373,39 +1403,39 @@ section{
    text-overflow: hidden;
 }
 
-.liked-videos .box-container .box{
+.liked-videos .box-container {
    background-color: var(--white);
    border-radius: .5rem;
    padding: 2rem;
    overflow-x: hidden;
 }
 
-.liked-videos .box-container .box .tutor{
+.liked-videos .box-container  .tutor{
    margin-bottom:2rem;
    display: flex;
    align-items: center;
    gap: 1.5rem;
 }
 
-.liked-videos .box-container .box .tutor img{
+.liked-videos .box-container .tutor img{
    height: 5rem;
    width: 5rem;
    border-radius: 50%;
    object-fit: cover;
 }
 
-.liked-videos .box-container .box .tutor h3{
+.liked-videos .box-container  .tutor h3{
    font-size: 1.8rem;
    color: var(--black);
    margin-bottom: .2rem;
 }
 
-.liked-videos .box-container .box .tutor span{
+.liked-videos .box-container  .tutor span{
    font-size: 1.5rem;
    color: var(--light-color);
 }
 
-.liked-videos .box-container .box .thumb{
+.liked-videos .box-container .thumb{
    width: 100%;
    height: 20rem;
    object-fit: cover;
@@ -1413,7 +1443,7 @@ section{
    margin-bottom: 1rem;
 }
 
-.liked-videos .box-container .box .title{
+.liked-videos .box-container .title{
    font-size: 2rem;
    color: var(--black);
    padding: .5rem 0;

@@ -72,23 +72,26 @@ if(isset($_COOKIE['user_id'])){
                $count_comments->execute([$tutor_id]);
                $total_comments = $count_comments->rowCount();
       ?>
-      <div class="box">
-         <div class="tutor">
-            <img src="uploaded_files/<?= $fetch_tutor['image']; ?>" alt="">
-            <div>
-               <h3><?= $fetch_tutor['name']; ?></h3>
-               <span><?= $fetch_tutor['profession']; ?></span>
-            </div>
-         </div>
-         <p>Playlists : <span><?= $total_playlists; ?></span></p>
-         <p>Total Videos : <span><?= $total_contents ?></span></p>
-         <p>Total Likes : <span><?= $total_likes ?></span></p>
-         <p>Total Comments : <span><?= $total_comments ?></span></p>
-         <form action="tutor_profile.php" method="post">
-            <input type="hidden" name="tutor_email" value="<?= $fetch_tutor['email']; ?>">
-            <input type="submit" value="view profile" name="tutor_fetch" class="inline-btn">
-         </form>
+    <div class="box" style="border: 1px solid #ddd; padding: 20px; margin-bottom: 20px; border-radius: 12px; background-color: #fff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease-in-out;">
+   <div class="tutor" style="display: flex; align-items: center; gap: 15px;">
+      <img src="uploaded_files/<?= $fetch_tutor['image']; ?>" alt="" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;">
+      <div>
+         <h3 style="font-size: 18px; color: #333; font-weight: 600; margin: 0;"><?= $fetch_tutor['name']; ?></h3>
+         <span style="font-size: 14px; color: #777;"><?= $fetch_tutor['profession']; ?></span>
       </div>
+   </div>
+   <div style="margin-top: 15px; color: #555;">
+      <p style="font-size: 14px; color: #2d2d2d;">Playlists: <span style="font-weight: bold; color: #2d2d2d;"><?= $total_playlists; ?></span></p>
+      <p style="font-size: 14px; color: #2d2d2d;">Total Videos: <span style="font-weight: bold; color: #2d2d2d;"><?= $total_contents ?></span></p>
+      <p style="font-size: 14px; color: #2d2d2d;">Total Likes: <span style="font-weight: bold; color: #2d2d2d;"><?= $total_likes ?></span></p>
+      <p style="font-size: 14px; color: #2d2d2d;">Total Comments: <span style="font-weight: bold; color: #2d2d2d;"><?= $total_comments ?></span></p>
+   </div>
+   <form action="tutor_profile.php" method="post" style="margin-top: 15px;">
+      <input type="hidden" name="tutor_email" value="<?= $fetch_tutor['email']; ?>">
+      <input type="submit" value="View Profile" name="tutor_fetch" class="inline-btn" style="background-color: #007bff; color: #fff; padding: 10px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; transition: background-color 0.3s;">
+   </form>
+</div>
+
       <?php
             }
          }else{
