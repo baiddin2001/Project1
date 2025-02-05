@@ -998,17 +998,6 @@ section{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 .footer{
    position: sticky;
    bottom: 0; right: 0; left: 0;
@@ -1019,7 +1008,7 @@ section{
    color: var(--black);
    font-size: 2rem;
    margin-top: 2rem;
-   z-index: 1000;
+   z-index: 1;
 }
 
 .footer span{
