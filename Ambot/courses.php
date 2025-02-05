@@ -22,6 +22,7 @@ if(isset($_COOKIE['user_id'])){
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
    <!-- custom css file link  -->
+   <link rel="stylesheet" href="css/Subject_student.css">
    <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -31,11 +32,11 @@ if(isset($_COOKIE['user_id'])){
 
 <!-- courses section starts  -->
 
-<section class="courses">
+<section class="courses1">
 
-   <h1 class="heading">all courses</h1>
+   <h1 class="heading1">All Subject</h1>
 
-   <div class="box-container">
+   <div class="box-container1">
 
       <?php
          $select_courses = $conn->prepare("SELECT * FROM `playlist` WHERE status = ? ORDER BY date DESC");
@@ -48,22 +49,22 @@ if(isset($_COOKIE['user_id'])){
                $select_tutor->execute([$fetch_course['tutor_id']]);
                $fetch_tutor = $select_tutor->fetch(PDO::FETCH_ASSOC);
       ?>
-      <div class="box">
-         <div class="tutor">
+      <div class="box1">
+         <div class="tutor1">
             <img src="uploaded_files/<?= $fetch_tutor['image']; ?>" alt="">
             <div>
                <h3><?= $fetch_tutor['name']; ?></h3>
                <span><?= $fetch_course['date']; ?></span>
             </div>
          </div>
-         <img src="uploaded_files/<?= $fetch_course['thumb']; ?>" class="thumb" alt="">
-         <h3 class="title"><?= $fetch_course['title']; ?></h3>
-         <a href="playlist.php?get_id=<?= $course_id; ?>" class="inline-btn">view playlist</a>
+         <img src="uploaded_files/<?= $fetch_course['thumb']; ?>" class="thumb1" alt="">
+         <h3 class="title1"><?= $fetch_course['title']; ?></h3>
+         <a href="playlist.php?get_id=<?= $course_id; ?>" class="inline-btn1">View Resources</a>
       </div>
       <?php
          }
       }else{
-         echo '<p class="empty">no courses added yet!</p>';
+         echo '<p class="empty1">no courses added yet!</p>';
       }
       ?>
 

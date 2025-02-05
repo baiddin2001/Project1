@@ -42,34 +42,34 @@ if(isset($_COOKIE['user_id'])){
       <div class="content">
          <h3>Why choose PTCI?</h3>
          <p>Since 1995, Palawan Technological College Incorporated (PTCI) has been a cornerstone of quality education, proudly located on Malvar Street in Puerto Princesa City, Palawan, committed to empowering students and shaping futures through innovative learning</p>
-         <a href="courses.php" class="inline-btn">our courses</a>
+         <a href="courses.php"  class="inline-btn" style="background-color:rgb(40, 98, 42); color: white; border: none; padding: 10px 20px; border-radius: 5px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); cursor: pointer;">our courses</a>
       </div>
 
    </div>
 
    <div class="box-container">
 
-      <div class="box">
-         <i class="fas fa-graduation-cap"></i>
+      <div class="box" style="background-color: rgba(146, 247, 143, 0.32); border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);">
+         <i style="color:Black;" class="fas fa-graduation-cap"></i>
          <div>
-            <h3>100+</h3>
-            <span>online courses</span>
+            <h3 style="color:Black;">100+</h3>
+            <span style="color:Black;">online courses</span>
          </div>
       </div>
 
-      <div class="box">
-         <i class="fas fa-user-graduate"></i>
+      <div class="box" style="background-color: rgba(146, 247, 143, 0.32); border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);">
+         <i style="color:Black;" class="fas fa-user-graduate" ></i>
          <div>
-            <h3>500+</h3>
-            <span>brilliants students</span>
+            <h3 style="color:Black;" >500+</h3>
+            <span style="color:Black;">brilliants students</span>
          </div>
       </div>
 
-      <div class="box">
-         <i class="fas fa-chalkboard-user"></i>
+      <div class="box" style="background-color: rgba(146, 247, 143, 0.32); border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);">
+         <i style="color:Black;" class="fas fa-chalkboard-user"></i>
          <div>
-            <h3>12</h3>
-            <span>expert teachers</span>
+            <h3 style="color:Black;">12</h3>
+            <span style="color:Black;">expert teachers</span>
          </div>
       </div>
 
