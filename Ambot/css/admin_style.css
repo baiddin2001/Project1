@@ -998,17 +998,6 @@ section{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 .footer{
    position: fixed;
    bottom: 0; right: 0; left: 0;
@@ -1018,16 +1007,10 @@ section{
    padding-left: 7cm;
    text-align: center;
    color: var(--black);
-<<<<<<< HEAD
-   font-size: 2rem;
-   margin-top: 2rem;
-   z-index: 1000;
-=======
    font-size: 1.5rem;
    margin-top: 1.5rem;
    z-index: 1;
    /* padding-bottom: 9.5rem; */
->>>>>>> 5d50b8451ea336bf709ced9352731d8c78f8651a
 }
 
 .footer span{

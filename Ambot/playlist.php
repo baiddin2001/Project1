@@ -55,7 +55,7 @@ if(isset($_POST['save_list'])){
 <?php include 'components/user_header.php'; ?>
 
 <section class="videos-container">
-   <h1 class="heading">Subject Videos</h1>
+   <h1 class="heading">Playlist Videos</h1>
    <div class="box-container">
       <?php
          $select_content = $conn->prepare("SELECT * FROM `content` WHERE playlist_id = ? AND status = ? ORDER BY date DESC");
@@ -100,60 +100,6 @@ if(isset($_POST['save_list'])){
       ?>
    </div>
 </section>
-
-<style>
-
-.files-container .box-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-}
-
-.files-container .box {
-    background: #f8f9fa;
-    padding: 10px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: 0.3s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.files-container .box i {
-    font-size: 30px;
-    color: #333;
-    margin-bottom: 5px;
-}
-
-.files-container .box h3 {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-    text-align: center;
-}
-
-.files-container .box .btn {
-    background: #007bff;
-    color: white;
-    padding: 5px 10px;
-    font-size: 12px;
-    border-radius: 5px;
-    text-decoration: none;
-    display: inline-block;
-    margin-top: 5px;
-}
-
-.files-container .box .btn:hover {
-    background: #0056b3;
-}
-
-
-</style>
 
 <?php include 'components/footer.php'; ?>
 <script src="js/script.js"></script>
