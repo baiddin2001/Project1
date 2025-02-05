@@ -98,8 +98,8 @@ if(isset($message)){
 
    <nav class="navbar">
       <a href="dashboard.php"><i class="fas fa-home"></i><span>HOME</span></a>
-      <a href="playlists.php"><i class="fa-solid fa-bars-staggered"></i><span>PLAYLISTS</span></a>
-      <a href="contents.php"><i class="fas fa-graduation-cap"></i><span>CONTENTS</span></a>
+      <a href="playlists.php"><i class="fa-solid fa-bars-staggered"></i><span>SUBJECTS</span></a>
+      <a href="contents.php"><i class="fas fa-graduation-cap"></i><span>RESOURCES</span></a>
       <a href="comments.php"><i class="fas fa-comment"></i><span>COMMENTS</span></a>
       <a href="../components/admin_logout.php" onclick="return confirm('logout from this website?');"><i class="fas fa-right-from-bracket"></i><span>LOGOUT</span></a>
    </nav>

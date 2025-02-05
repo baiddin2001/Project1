@@ -85,22 +85,22 @@ if(isset($_POST['submit'])){
    <h1 class="heading">Upload Content</h1>
 
    <form action="" method="post" enctype="multipart/form-data">
-      <p>Video Status <span>*</span></p>
+      <p>Status <span>*</span></p>
       <select name="status" class="box" required>
          <option value="" selected disabled>-- Select Status --</option>
          <option value="active">Active</option>
          <option value="deactive">Deactive</option>
       </select>
 
-      <p>Video Title <span>*</span></p>
+      <p>Title <span>*</span></p>
       <input type="text" name="title" maxlength="100" required placeholder="Enter video title" class="box">
 
-      <p>Video Description <span>*</span></p>
+      <p>Description <span>*</span></p>
       <textarea name="description" class="box" required placeholder="Write description" maxlength="1000" cols="30" rows="10"></textarea>
 
-      <p>Video Playlist <span>*</span></p>
+      <p>Resources Subject <span>*</span></p>
       <select name="playlist" class="box" required>
-         <option value="" disabled selected>-- Select Playlist --</option>
+         <option value="" disabled selected>-- Select from Subjects --</option>
          <?php
          $select_playlists = $conn->prepare("SELECT * FROM `playlist` WHERE tutor_id = ?");
          $select_playlists->execute([$tutor_id]);
@@ -111,16 +111,16 @@ if(isset($_POST['submit'])){
          <?php
             }
          } else {
-            echo '<option value="" disabled>No playlist created yet!</option>';
+            echo '<option value="" disabled>No Subjects created yet!</option>';
          }
          ?>
       </select>
 
-      <p>Select Thumbnail <span>*</span></p>
+      <p>Please Input for the Cover Page <span>*</span></p>
       <input type="file" name="thumb" accept="image/*" required class="box">
 
-      <p>Select Video <span>*</span></p>
-      <input type="file" name="video" accept="video/*" required class="box">
+      <p>Include a Video <span>(Optional)</span></p>
+      <input type="file" name="video" accept="video/*" class="box">
 
       <p>Select Additional File (PDF, Word, PPT, Excel) <span>(Optional)</span></p>
       <input type="file" name="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx" class="box">
