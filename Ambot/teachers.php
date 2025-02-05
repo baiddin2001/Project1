@@ -42,11 +42,11 @@ if(isset($_COOKIE['user_id'])){
 
    <div class="box-container">
 
-      <!-- <div class="box offer">
+      <div class="box offer">
          <h3>Become a Instructor</h3>
          <p>Join PTCI College as a instructor and inspire the next generation of learners by sharing your expertise, shaping futures, and making a lasting impact in education.</p>
          <a href="admin/register.php" class="inline-btn">get started</a>
-      </div> -->
+      </div>
 
       <?php
          $select_tutors = $conn->prepare("SELECT * FROM `tutors`");

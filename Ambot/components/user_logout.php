@@ -4,6 +4,6 @@
 
    setcookie('user_id', '', time() - 1, '/');
 
-   header('location:../login.php');
+   header('location:../home.php');
 
 ?>
