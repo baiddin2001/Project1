@@ -40,7 +40,7 @@ if(isset($_COOKIE['user_id'])){
       <button type="submit" name="search_tutor_btn" class="fas fa-search"></button>
    </form>
 
-   <div class="box-container">
+   <div class="box-container" style="background-color: rgba(146, 247, 143, 0.32); border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);">
 
       <!-- <div class="box offer">
          <h3>Become a Instructor</h3>

@@ -46,53 +46,52 @@ $total_bookmarked = $select_bookmark->rowCount();
 
 <section class="quick-select">
 
-   <!-- <h1 class="heading">Quick Options</h1> -->
+   
+<div class="box-container" style="background-color: rgba(221, 225, 221, 0.56); border-radius: 10px;">
 
-   <div class="box-container">
+            <?php
+         if ($user_id != '') {
+         ?>
+            <div class="box">
+               <h3 class="title1">Your Likes and Comments</h3>
+               <p>Total Likes: <span><?= $total_likes; ?></span></p>
+               <a href="likes.php" class="inline-btn">View Likes</a>
+               <p>Total Comments: <span><?= $total_comments; ?></span></p>
+               <a href="comments.php" class="inline-btn">View Comments</a>
+               <p>Saved Playlist: <span><?= $total_bookmarked; ?></span></p>
+               <a href="bookmark.php" class="inline-btn">View Bookmark</a>
+            </div>
+            <section class="courses">
 
-   <?php
-if ($user_id != '') {
-?>
-    <div class="box">
-        <h3 class="title1">Your Likes and Comments</h3>
-        <p>Total Likes: <span><?= $total_likes; ?></span></p>
-        <a href="likes.php" class="inline-btn">View Likes</a>
-        <p>Total Comments: <span><?= $total_comments; ?></span></p>
-        <a href="comments.php" class="inline-btn">View Comments</a>
-        <p>Saved Playlist: <span><?= $total_bookmarked; ?></span></p>
-        <a href="bookmark.php" class="inline-btn">View Bookmark</a>
-    </div>
-    <section class="courses">
+         <!-- <h1 class="heading">latest courses</h1> -->
 
-<!-- <h1 class="heading">latest courses</h1> -->
+         <div class="notification-container">
+         <h3 class="title1">Announcement</h3>
+         <?php
+         $select_courses = $conn->prepare("SELECT * FROM `playlist` WHERE status = ? ORDER BY date DESC LIMIT 6");
+         $select_courses->execute(['active']);
+         if($select_courses->rowCount() > 0){
+            while($fetch_course = $select_courses->fetch(PDO::FETCH_ASSOC)){
+               $course_id = $fetch_course['id'];
 
-<div class="notification-container">
-<h3 class="title1">Subjects</h3>
-<?php
-  $select_courses = $conn->prepare("SELECT * FROM `playlist` WHERE status = ? ORDER BY date DESC LIMIT 6");
-  $select_courses->execute(['active']);
-  if($select_courses->rowCount() > 0){
-     while($fetch_course = $select_courses->fetch(PDO::FETCH_ASSOC)){
-        $course_id = $fetch_course['id'];
-
-        $select_tutor = $conn->prepare("SELECT * FROM `tutors` WHERE id = ?");
-        $select_tutor->execute([$fetch_course['tutor_id']]);
-        $fetch_tutor = $select_tutor->fetch(PDO::FETCH_ASSOC);
-?>
-  <div class="notification-box info">
-      <img src="uploaded_files/<?= $fetch_tutor['image']; ?>" alt="Tutor Image">
-      <div class="content">
-          <h3>New Subject: <?= $fetch_course['title']; ?></h3>
-          <p>By <?= $fetch_tutor['name']; ?> on <?= $fetch_course['date']; ?></p>
-          <a href="playlist.php?get_id=<?= $course_id; ?>">View Course</a>
-      </div>
-  </div>
-<?php
-     }
-  } else {
-     echo '<p class="empty">No courses added yet!</p>';
-  }
-?>
+               $select_tutor = $conn->prepare("SELECT * FROM `tutors` WHERE id = ?");
+               $select_tutor->execute([$fetch_course['tutor_id']]);
+               $fetch_tutor = $select_tutor->fetch(PDO::FETCH_ASSOC);
+         ?>
+         <div class="notification-box info">
+               <img src="uploaded_files/<?= $fetch_tutor['image']; ?>" alt="Tutor Image">
+               <div class="content">
+                  <h3>New Subject: <?= $fetch_course['title']; ?></h3>
+                  <p>By <?= $fetch_tutor['name']; ?> on <?= $fetch_course['date']; ?></p>
+                  <a href="playlist.php?get_id=<?= $course_id; ?>">View Course</a>
+               </div>
+         </div>
+         <?php
+            }
+         } else {
+            echo '<p class="empty">No courses added yet!</p>';
+         }
+         ?>
 </div>
 
 <div class="more-btn">

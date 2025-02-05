@@ -57,19 +57,22 @@ if(isset($_POST['submit'])){
 
 <section class="contact">
 
-   <div class="row">
+<div class="row" >
 
-      <div class="image">
+      <div class="image" >
          <img src="images/contact.svg" alt="">
       </div>
 
-      <form action="" method="post">
+      <form action="" method="post" style="background: linear-gradient(to right, rgba(34, 139, 34, 0.57), rgba(60, 179, 114, 0.52)); box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3); border-radius: 10px;">
          <h3>Get in Touch!</h3>
          <input type="text" placeholder="Enter your name" required maxlength="100" name="name" class="box">
          <input type="email" placeholder="Enter your email" required maxlength="100" name="email" class="box">
          <input type="number" min="0" max="99999999999" placeholder="Enter your number" required maxlength="11" name="number" class="box">
          <textarea name="msg" class="box" placeholder="Enter your message" required cols="30" rows="10" maxlength="1000"></textarea>
-         <input type="submit" value="send message" class="inline-btn" name="submit">
+         
+         
+         <input type="submit" value="Send Message" class="inline-btn" name="submit" 
+       style="background-color:rgb(40, 98, 42); color: white; border: none; padding: 10px 20px; border-radius: 5px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); cursor: pointer;">
       </form>
 
    </div>
