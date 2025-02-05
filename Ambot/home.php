@@ -49,31 +49,26 @@ $total_bookmarked = $select_bookmark->rowCount();
 
    <div class="box-container">
 
-      <?php
-         if($user_id != ''){
-      ?>
-      <div class="box">
-         <h3 class="title">Likes and Comments</h3>
-         <p>Total Likes : <span><?= $total_likes; ?></span></p>
-         <a href="likes.php" class="inline-btn">view likes</a>
-         <p>Total Comments : <span><?= $total_comments; ?></span></p>
-         <a href="comments.php" class="inline-btn">view comments</a>
-         <p>Saved Playlist : <span><?= $total_bookmarked; ?></span></p>
-         <a href="bookmark.php" class="inline-btn">view bookmark</a>
-      </div>
-      <?php
-         }else{ 
-      ?>
-      <div class="box" style="text-align: center;">
-         <h3 class="title">Please Login or Register</h3>
-          <div class="flex-btn" style="padding-top: .5rem;">
-            <a href="login.php" class="option-btn">login</a>
-            <a href="register.php" class="option-btn">register</a>
-         </div>
-      </div>
-      <?php
-      }
-      ?>
+   <?php
+if ($user_id != '') {
+?>
+    <div class="box">
+        <h3 class="title">Likes and Comments</h3>
+        <p>Total Likes: <span><?= $total_likes; ?></span></p>
+        <a href="likes.php" class="inline-btn">View Likes</a>
+        <p>Total Comments: <span><?= $total_comments; ?></span></p>
+        <a href="comments.php" class="inline-btn">View Comments</a>
+        <p>Saved Playlist: <span><?= $total_bookmarked; ?></span></p>
+        <a href="bookmark.php" class="inline-btn">View Bookmark</a>
+    </div>
+<?php
+} else {
+    // Redirect to login page if the user is not logged in
+    header("Location: login.php");
+    exit(); // Make sure to exit after redirecting
+}
+?>
+
 
       <!-- <div class="box">
          <h3 class="title">Top Strands</h3>
