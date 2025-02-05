@@ -64,11 +64,11 @@ $total_comments = $select_comments->rowCount();
          <a href="add_playlist.php" class="btn">Add Subject</a>
       </div>
 
-      <div class="box">
+      <!-- <div class="box">
          <h3><?= $total_likes; ?></h3>
          <p>Total Likes</p>
          <a href="contents.php" class="btn">View Contents</a>
-      </div>
+      </div> -->
 
       <div class="box">
          <h3><?= $total_comments; ?></h3>
