@@ -59,13 +59,13 @@ if(isset($_POST['delete_video'])){
    
 <section class="contents">
 
-   <h1 class="heading">your contents</h1>
+   <h1 class="heading">List of Resources</h1>
 
    <div class="box-container">
 
    <div class="box" style="text-align: center;">
-      <h3 class="title" style="margin-bottom: .5rem;">create new content</h3>
-      <a href="add_content.php" class="btn">add content</a>
+      <h3 class="title" style="margin-bottom: .5rem;">Create New Resources</h3>
+      <a href="add_content.php" class="btn">Add Resources</a>
    </div>
 
    <?php
@@ -87,12 +87,12 @@ if(isset($_POST['delete_video'])){
             <a href="update_content.php?get_id=<?= $video_id; ?>" class="option-btn">update</a>
             <input type="submit" value="delete" class="delete-btn" onclick="return confirm('delete this video?');" name="delete_video">
          </form>
-         <a href="view_content.php?get_id=<?= $video_id; ?>" class="btn">view content</a>
+         <a href="view_content.php?get_id=<?= $video_id; ?>" class="btn">View Resources</a>
       </div>
    <?php
          }
       }else{
-         echo '<p class="empty">no contents added yet!</p>';
+         echo '<p class="empty">no resources added yet!</p>';
       }
    ?>
 

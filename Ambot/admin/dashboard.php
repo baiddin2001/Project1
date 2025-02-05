@@ -53,21 +53,15 @@ $total_comments = $select_comments->rowCount();
    <div class="box-container">
 
       <div class="box">
-         <h3>Welcome!</h3>
-         <p><?= $fetch_profile['name']; ?></p>
-         <a href="profile.php" class="btn">View Profile</a>
-      </div>
-
-      <div class="box">
          <h3><?= $total_contents; ?></h3>
-         <p>Total Contents</p>
-         <a href="add_content.php" class="btn">Add New Content</a>
+         <p>Total Number of Resources</p>
+         <a href="add_content.php" class="btn">Add New Resources</a>
       </div>
 
       <div class="box">
          <h3><?= $total_playlists; ?></h3>
-         <p>Total Playlists</p>
-         <a href="add_playlist.php" class="btn">Add New Playlist</a>
+         <p>Total Number of Subjects</p>
+         <a href="add_playlist.php" class="btn">Add Subject</a>
       </div>
 
       <div class="box">
