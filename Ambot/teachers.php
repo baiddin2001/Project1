@@ -95,6 +95,7 @@ if(isset($_COOKIE['user_id'])){
             echo '<p class="empty">no tutors found!</p>';
          }
       ?>
+       <div style="margin-bottom: 2cm;"></div>
 
    </div>
 

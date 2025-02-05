@@ -126,7 +126,7 @@ $total_bookmarked = $select_bookmark->rowCount();
                $select_tutor->execute([$fetch_course['tutor_id']]);
                $fetch_tutor = $select_tutor->fetch(PDO::FETCH_ASSOC);
       ?>
-      <div class="box">
+      <div class="box" >
          <div class="tutor">
             <img src="uploaded_files/<?= $fetch_tutor['image']; ?>" alt="">
             <div>
@@ -146,10 +146,12 @@ $total_bookmarked = $select_bookmark->rowCount();
       ?>
 
    </div>
+  
 
    <div class="more-btn">
       <a href="courses.php" class="inline-option-btn">view more</a>
    </div>
+   <div style="margin-bottom: 2cm;"></div>
 
 </section>
 
