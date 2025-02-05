@@ -20,10 +20,10 @@ if(isset($message)){
       <form action="search_course.php" method="post" class="search-form">
          <input type="text" name="search_course" placeholder="search courses..." required maxlength="100">
          <button type="submit" class="fas fa-search" name="search_course_btn"></button>
-      </form> 
+      </form>
 
       <div class="icons">
-         <div id="menu-btn" class="fas fa-bars"></div> 
+         <div id="menu-btn" class="fas fa-bars"></div>
          <div id="search-btn" class="fas fa-search"></div>
          <div id="user-btn" class="fas fa-user"></div>
          <div id="toggle-btn" class="fas fa-sun"></div>
@@ -86,23 +86,23 @@ if(isset($message)){
          <?php
             }else{
          ?>
-         <h3>Please Login or Register</h3>
+         <!-- <h3>Please Login or Register</h3>
           <div class="flex-btn" style="padding-top: .5rem;">
             <a href="login.php" class="option-btn">login</a>
             <a href="register.php" class="option-btn">register</a>
-         </div> 
+         </div> -->
          <?php
             }
          ?>
       </div>
 
-   <!-- <nav class="navbar">
+   <nav class="navbar">
       <a href="home.php"><i class="fas fa-home"></i><span>HOME</span></a>
       <a href="courses.php"><i class="fas fa-graduation-cap"></i><span>SUBJECTS</span></a>
       <a href="teachers.php"><i class="fas fa-chalkboard-user"></i><span>INSTRUCTORS</span></a>
       <a href="about.php"><i class="fas fa-question"></i><span>ABOUT US</span></a>
       <a href="contact.php"><i class="fas fa-headset"></i><span>CONTACT US</span></a>
-   </nav> -->
+   </nav>
 
 </div>
 

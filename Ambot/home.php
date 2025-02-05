@@ -45,7 +45,7 @@ $total_bookmarked = $select_bookmark->rowCount();
 
 <section class="quick-select">
 
-   <!-- <h1 class="heading">Quick Options</h1> -->
+   <h1 class="heading">Quick Options</h1>
 
    <div class="box-container">
 
@@ -95,11 +95,11 @@ $total_bookmarked = $select_bookmark->rowCount();
          </div>
       </div> -->
 
-      <!-- <div class="box tutor">
+      <div class="box tutor">
          <h3 class="title">Become a Tutor</h3>
          <p style="text-align: left;">Join PTCI College as a tutor and inspire the next generation of learners by sharing your expertise, shaping futures, and making a lasting impact in education.</p>
          <a href="admin/register.php" class="inline-btn">get started</a>
-      </div> -->
+      </div>
 
    </div>
 
