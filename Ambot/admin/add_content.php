@@ -12,15 +12,12 @@ if(isset($_COOKIE['tutor_id'])){
 if(isset($_POST['submit'])){
 
    $id = unique_id();
-   $status = $_POST['status'];
-   $status = filter_var($status, FILTER_SANITIZE_STRING);
-   $title = $_POST['title'];
-   $title = filter_var($title, FILTER_SANITIZE_STRING);
-   $description = $_POST['description'];
-   $description = filter_var($description, FILTER_SANITIZE_STRING);
-   $playlist = $_POST['playlist'];
-   $playlist = filter_var($playlist, FILTER_SANITIZE_STRING);
+   $status = filter_var($_POST['status'], FILTER_SANITIZE_STRING);
+   $title = filter_var($_POST['title'], FILTER_SANITIZE_STRING);
+   $description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
+   $playlist = filter_var($_POST['playlist'], FILTER_SANITIZE_STRING);
 
+   // Thumbnail Upload
    $thumb = $_FILES['thumb']['name'];
    $thumb = filter_var($thumb, FILTER_SANITIZE_STRING);
    $thumb_ext = pathinfo($thumb, PATHINFO_EXTENSION);
@@ -29,6 +26,7 @@ if(isset($_POST['submit'])){
    $thumb_tmp_name = $_FILES['thumb']['tmp_name'];
    $thumb_folder = '../uploaded_files/'.$rename_thumb;
 
+   // Video Upload
    $video = $_FILES['video']['name'];
    $video = filter_var($video, FILTER_SANITIZE_STRING);
    $video_ext = pathinfo($video, PATHINFO_EXTENSION);
@@ -36,18 +34,30 @@ if(isset($_POST['submit'])){
    $video_tmp_name = $_FILES['video']['tmp_name'];
    $video_folder = '../uploaded_files/'.$rename_video;
 
+   // File Upload (Word, PDF, PPT, Excel)
+   $file = $_FILES['file']['name'];
+   $file = filter_var($file, FILTER_SANITIZE_STRING);
+   $file_ext = pathinfo($file, PATHINFO_EXTENSION);
+   $rename_file = unique_id().'.'.$file_ext;
+   $file_tmp_name = $_FILES['file']['tmp_name'];
+   $file_folder = '../uploaded_files/'.$rename_file;
+
+   $allowed_extensions = ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx'];
+
    if($thumb_size > 2000000){
-      $message[] = 'image size is too large!';
-   }else{
-      $add_playlist = $conn->prepare("INSERT INTO `content`(id, tutor_id, playlist_id, title, description, video, thumb, status) VALUES(?,?,?,?,?,?,?,?)");
-      $add_playlist->execute([$id, $tutor_id, $playlist, $title, $description, $rename_video, $rename_thumb, $status]);
+      $message[] = 'Image size is too large!';
+   } elseif (!empty($file) && !in_array($file_ext, $allowed_extensions)) {
+      $message[] = 'Invalid file type! Allowed: PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX.';
+   } else {
+      $add_content = $conn->prepare("INSERT INTO `content`(id, tutor_id, playlist_id, title, description, video, thumb, file, status) VALUES(?,?,?,?,?,?,?,?,?)");
+      $add_content->execute([$id, $tutor_id, $playlist, $title, $description, $rename_video, $rename_thumb, $rename_file, $status]);
+
       move_uploaded_file($thumb_tmp_name, $thumb_folder);
       move_uploaded_file($video_tmp_name, $video_folder);
-      $message[] = 'new course uploaded!';
+      move_uploaded_file($file_tmp_name, $file_folder);
+      
+      $message[] = 'New course uploaded!';
    }
-
-   
-
 }
 
 ?>
@@ -60,12 +70,11 @@ if(isset($_POST['submit'])){
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Dashboard</title>
 
-   <!-- font awesome cdn link  -->
+   <!-- Font Awesome -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
-   <!-- custom css file link  -->
+   <!-- Custom CSS -->
    <link rel="stylesheet" href="../css/admin_style.css">
-
 </head>
 <body>
 
@@ -73,22 +82,25 @@ if(isset($_POST['submit'])){
    
 <section class="video-form">
 
-   <h1 class="heading">upload content</h1>
+   <h1 class="heading">Upload Content</h1>
 
    <form action="" method="post" enctype="multipart/form-data">
-      <p>video status <span>*</span></p>
+      <p>Video Status <span>*</span></p>
       <select name="status" class="box" required>
-         <option value="" selected disabled>-- select status</option>
-         <option value="active">active</option>
-         <option value="deactive">deactive</option>
+         <option value="" selected disabled>-- Select Status --</option>
+         <option value="active">Active</option>
+         <option value="deactive">Deactive</option>
       </select>
-      <p>video title <span>*</span></p>
-      <input type="text" name="title" maxlength="100" required placeholder="enter video title" class="box">
-      <p>video description <span>*</span></p>
-      <textarea name="description" class="box" required placeholder="write description" maxlength="1000" cols="30" rows="10"></textarea>
-      <p>video playlist <span>*</span></p>
+
+      <p>Video Title <span>*</span></p>
+      <input type="text" name="title" maxlength="100" required placeholder="Enter video title" class="box">
+
+      <p>Video Description <span>*</span></p>
+      <textarea name="description" class="box" required placeholder="Write description" maxlength="1000" cols="30" rows="10"></textarea>
+
+      <p>Video Playlist <span>*</span></p>
       <select name="playlist" class="box" required>
-         <option value="" disabled selected>--select playlist</option>
+         <option value="" disabled selected>-- Select Playlist --</option>
          <?php
          $select_playlists = $conn->prepare("SELECT * FROM `playlist` WHERE tutor_id = ?");
          $select_playlists->execute([$tutor_id]);
@@ -98,35 +110,25 @@ if(isset($_POST['submit'])){
          <option value="<?= $fetch_playlist['id']; ?>"><?= $fetch_playlist['title']; ?></option>
          <?php
             }
-         ?>
-         <?php
-         }else{
-            echo '<option value="" disabled>no playlist created yet!</option>';
+         } else {
+            echo '<option value="" disabled>No playlist created yet!</option>';
          }
          ?>
       </select>
-      <p>select thumbnail <span>*</span></p>
+
+      <p>Select Thumbnail <span>*</span></p>
       <input type="file" name="thumb" accept="image/*" required class="box">
-      <p>select video <span>*</span></p>
+
+      <p>Select Video <span>*</span></p>
       <input type="file" name="video" accept="video/*" required class="box">
-      <input type="submit" value="upload video" name="submit" class="btn">
+
+      <p>Select Additional File (PDF, Word, PPT, Excel) <span>(Optional)</span></p>
+      <input type="file" name="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx" class="box">
+
+      <input type="submit" value="Upload Video" name="submit" class="btn">
    </form>
 
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <?php include '../components/footer.php'; ?>
 
