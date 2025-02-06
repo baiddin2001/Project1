@@ -8,80 +8,82 @@ if(isset($_COOKIE['tutor_id'])){
    header('location:login.php');
 }
 
-if(isset($_POST['submit'])){
+   if(isset($_POST['submit'])){
 
-   $id = unique_id();
-   $status = filter_var($_POST['status'], FILTER_SANITIZE_STRING);
-   $title = filter_var($_POST['title'], FILTER_SANITIZE_STRING);
-   $description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
-   $playlist = filter_var($_POST['playlist'], FILTER_SANITIZE_STRING);
+      $id = unique_id();
+      $status = filter_var($_POST['status'], FILTER_SANITIZE_STRING);
+      $title = filter_var($_POST['title'], FILTER_SANITIZE_STRING);
+      $description = filter_var($_POST['description'], FILTER_SANITIZE_STRING);
+      $playlist = filter_var($_POST['playlist'], FILTER_SANITIZE_STRING);
 
-   // Thumbnail Upload
-   $thumb = $_FILES['thumb']['name'];
-   $thumb = filter_var($thumb, FILTER_SANITIZE_STRING);
-   $thumb_ext = pathinfo($thumb, PATHINFO_EXTENSION);
-   $rename_thumb = unique_id().'.'.$thumb_ext;
-   $thumb_size = $_FILES['thumb']['size'];
-   $thumb_tmp_name = $_FILES['thumb']['tmp_name'];
-   $thumb_folder = '../uploaded_files/'.$rename_thumb;
+      // Thumbnail Upload
+      $thumb = $_FILES['thumb']['name'];
+      $thumb = filter_var($thumb, FILTER_SANITIZE_STRING);
+      $thumb_ext = pathinfo($thumb, PATHINFO_EXTENSION);
+      $rename_thumb = unique_id().'.'.$thumb_ext;
+      $thumb_size = $_FILES['thumb']['size'];
+      $thumb_tmp_name = $_FILES['thumb']['tmp_name'];
+      $thumb_folder = '../uploaded_files/'.$rename_thumb;
 
-   // Video Upload
-   $video = $_FILES['video']['name'];
-   if(empty($video)) {
-      $rename_video = 'none';
-      $video_tmp_name = ''; 
-      $video_folder = ''; 
-   } else {
-      $video = filter_var($video, FILTER_SANITIZE_STRING);
-      $video_ext = pathinfo($video, PATHINFO_EXTENSION);
-      $rename_video = unique_id().'.'.$video_ext;
-      $video_tmp_name = $_FILES['video']['tmp_name'];
-      $video_folder = '../uploaded_files/'.$rename_video;
-   }
-
-   // File Upload (PDF, Word, PPT, Excel)
-   $file = $_FILES['file']['name'];
-   $file_tmp_name = $_FILES['file']['tmp_name'];
-   $rename_file = '';
-
-   if (!empty($file)) {
-      $file = filter_var($file, FILTER_SANITIZE_STRING);
-      $file_ext = pathinfo($file, PATHINFO_EXTENSION);
-      $rename_file = unique_id().'.'.$file_ext;
-      $file_folder = '../uploaded_files/'.$rename_file;
-
-      $allowed_extensions = ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx'];
-
-      if (in_array($file_ext, $allowed_extensions)) {
-         move_uploaded_file($file_tmp_name, $file_folder);
+      // Video Upload
+      $video = $_FILES['video']['name'];
+      if(empty($video)) {
+         $rename_video = 'none';
+         $video_tmp_name = ''; 
+         $video_folder = ''; 
       } else {
-         $rename_file = ''; // Invalid file, don't include in the database
-      }
-   }
-
-   if ($thumb_size > 2000000) {
-      $message[] = 'Image size is too large!';
-   } else {
-      // Prepare SQL query dynamically
-      $sql = "INSERT INTO content (id, tutor_id, playlist_id, title, description, video, thumb, status";
-      $params = [$id, $tutor_id, $playlist, $title, $description, $rename_video, $rename_thumb, $status];
-
-      if (!empty($rename_file)) {
-         $sql .= ", file";
-         $params[] = $rename_file;
+         $video = filter_var($video, FILTER_SANITIZE_STRING);
+         $video_ext = pathinfo($video, PATHINFO_EXTENSION);
+         $rename_video = unique_id().'.'.$video_ext;
+         $video_tmp_name = $_FILES['video']['tmp_name'];
+         $video_folder = '../uploaded_files/'.$rename_video;
       }
 
-      $sql .= ") VALUES (" . implode(",", array_fill(0, count($params), "?")) . ")";
+      // File Upload (PDF, Word, PPT, Excel)
+      $file = $_FILES['file']['name'];
+      $file_tmp_name = $_FILES['file']['tmp_name'];
+      $rename_file = 'none';
+      $file_folder = ''; 
+      
+      if (!empty($file)) {
+          $file = filter_var($file, FILTER_SANITIZE_STRING);
+          $file_ext = pathinfo($file, PATHINFO_EXTENSION);
+          $rename_file = unique_id().'.'.$file_ext;
+          $file_folder = '../uploaded_files/'.$rename_file;
+      
+          $allowed_extensions = ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx'];
+      
+          if (in_array($file_ext, $allowed_extensions)) {
+              move_uploaded_file($file_tmp_name, $file_folder);
+          } else {
+              $rename_file = 'none'; // Invalid file, set to 'none'
+              $file_folder = ''; // No file to store
+          }
+      }
 
-      $add_content = $conn->prepare($sql);
-      $add_content->execute($params);
+      if ($thumb_size > 2000000) {
+         $message[] = 'Image size is too large!';
+      } else {
+         // Prepare SQL query dynamically
+         $sql = "INSERT INTO content (id, tutor_id, playlist_id, title, description, video, thumb, status";
+         $params = [$id, $tutor_id, $playlist, $title, $description, $rename_video, $rename_thumb, $status];
 
-      move_uploaded_file($thumb_tmp_name, $thumb_folder);
-      move_uploaded_file($video_tmp_name, $video_folder);
+         if (!empty($rename_file)) {
+            $sql .= ", file";
+            $params[] = $rename_file;
+         }
 
-      $message[] = 'New course uploaded!';
+         $sql .= ") VALUES (" . implode(",", array_fill(0, count($params), "?")) . ")";
+
+         $add_content = $conn->prepare($sql);
+         $add_content->execute($params);
+
+         move_uploaded_file($thumb_tmp_name, $thumb_folder);
+         move_uploaded_file($video_tmp_name, $video_folder);
+
+         $message[] = 'New course uploaded!';
+      }
    }
-}
 
 ?>
 

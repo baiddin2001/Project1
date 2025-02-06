@@ -97,29 +97,30 @@ if(isset($_POST['save_list'])){
 
 
 <!-- Downloadable Files Section -->
-<section class="files-container">
-   <h1 class="heading">Downloadable Files</h1>
-   <div class="box-container">
+<section class="courses1">
+   <h1 class="heading1" style="color: black;">Downloadable Files</h1>
+   <div class="box-container1">
       <?php
          $select_files = $conn->prepare("SELECT * FROM content WHERE playlist_id = ? AND file IS NOT NULL AND file != '' AND file != 'none'");
-
          $select_files->execute([$get_id]);
-         if($select_files->rowCount() > 0){
-            while($fetch_file = $select_files->fetch(PDO::FETCH_ASSOC)){  
+
+         if ($select_files->rowCount() > 0) {
+            while ($fetch_file = $select_files->fetch(PDO::FETCH_ASSOC)) {  
       ?>
-      <div class="box">
+      <div class="box1">
          <i class="fas fa-file"></i>
-         <h3><?= $fetch_file['title']; ?></h3>
-         <a href="uploaded_files/<?= $fetch_file['file']; ?>" download class="btn">Download</a>
+         <h3 style="color: black;" class="title1"><?= $fetch_file['title']; ?></h3>
+         <a href="uploaded_files/<?= $fetch_file['file']; ?>" download class="inline-btn1">Download</a>
       </div>
       <?php
             }
-         }else{
-            echo '<p class="empty">No files uploaded yet!</p>';
+         } else {
+            echo '<p class="empty1">No files uploaded yet!</p>';
          }
       ?>
    </div>
 </section>
+
 
 <?php include 'components/footer.php'; ?>
 <script src="js/script.js"></script>
