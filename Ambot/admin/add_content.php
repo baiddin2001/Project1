@@ -93,7 +93,7 @@ if(isset($_POST['submit'])){
       </select>
 
       <p>Title <span>*</span></p>
-      <input type="text" name="title" maxlength="100" required placeholder="Enter video title" class="box">
+      <input type="text" name="title" maxlength="50" required placeholder="Enter Title" class="box">
 
       <p>Description <span>*</span></p>
       <textarea name="description" class="box" required placeholder="Write description" maxlength="1000" cols="30" rows="10"></textarea>

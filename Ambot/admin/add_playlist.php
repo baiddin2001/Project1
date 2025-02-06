@@ -69,7 +69,7 @@ if(isset($_POST['submit'])){
          <option value="deactive">deactive</option>
       </select>
       <p>Subject title <span>*</span></p>
-      <input type="text" name="title" maxlength="100" required placeholder="enter playlist title" class="box">
+      <input type="text" name="title" maxlength="100" required placeholder="Enter Subject Title" class="box">
       <p>Subject description <span>*</span></p>
       <textarea name="description" class="box" required placeholder="write description" maxlength="1000" cols="30" rows="10"></textarea>
       <p>Subject thumbnail <span>*</span></p>

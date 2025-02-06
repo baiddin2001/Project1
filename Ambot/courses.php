@@ -34,7 +34,7 @@ if(isset($_COOKIE['user_id'])){
 
 <section class="courses1">
 
-   <h1 class="heading1">All Subject</h1>
+   <h1 class="heading1" style="color: black;">All Subject</h1>
 
    <div class="box-container1">
 
@@ -53,12 +53,12 @@ if(isset($_COOKIE['user_id'])){
          <div class="tutor1">
             <img src="uploaded_files/<?= $fetch_tutor['image']; ?>" alt="">
             <div>
-               <h3><?= $fetch_tutor['name']; ?></h3>
+               <h3 style="color: black;"><?= $fetch_tutor['name']; ?></h3>
                <span><?= $fetch_course['date']; ?></span>
             </div>
          </div>
          <img src="uploaded_files/<?= $fetch_course['thumb']; ?>" class="thumb1" alt="">
-         <h3 class="title1"><?= $fetch_course['title']; ?></h3>
+         <h3 style="color: black;" class="title1"><?= $fetch_course['title']; ?></h3>
          <a href="playlist.php?get_id=<?= $course_id; ?>" class="inline-btn1">View Resources</a>
       </div>
       <?php
