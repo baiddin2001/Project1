@@ -65,10 +65,10 @@ $total_bookmarked = $select_bookmark->rowCount();
 
          <!-- <h1 class="heading">latest courses</h1> -->
 
-         <div class="notification-container">
+   <div class="notification-container">
          <h3 class="title1">Announcement</h3>
          <?php
-         $select_courses = $conn->prepare("SELECT * FROM `playlist` WHERE status = ? ORDER BY date DESC LIMIT 6");
+         $select_courses = $conn->prepare("SELECT * FROM `playlist` WHERE status = ? ORDER BY date DESC LIMIT 3");
          $select_courses->execute(['active']);
          if($select_courses->rowCount() > 0){
             while($fetch_course = $select_courses->fetch(PDO::FETCH_ASSOC)){

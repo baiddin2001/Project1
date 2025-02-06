@@ -27,13 +27,20 @@ if(isset($_POST['submit'])){
    $thumb_folder = '../uploaded_files/'.$rename_thumb;
 
    // Video Upload
+   // Video Upload
    $video = $_FILES['video']['name'];
-   $video = filter_var($video, FILTER_SANITIZE_STRING);
-   $video_ext = pathinfo($video, PATHINFO_EXTENSION);
-   $rename_video = unique_id().'.'.$video_ext;
-   $video_tmp_name = $_FILES['video']['tmp_name'];
-   $video_folder = '../uploaded_files/'.$rename_video;
-
+      if(empty($video)) {
+         // No video uploaded, set to 'none'
+         $rename_video = 'none';
+         $video_tmp_name = ''; 
+         $video_folder = ''; 
+      } else {
+         $video = filter_var($video, FILTER_SANITIZE_STRING);
+         $video_ext = pathinfo($video, PATHINFO_EXTENSION);
+         $rename_video = unique_id().'.'.$video_ext;
+         $video_tmp_name = $_FILES['video']['tmp_name'];
+         $video_folder = '../uploaded_files/'.$rename_video;
+      }
    // File Upload (Word, PDF, PPT, Excel)
    $file = $_FILES['file']['name'];
    $file = filter_var($file, FILTER_SANITIZE_STRING);
@@ -125,7 +132,7 @@ if(isset($_POST['submit'])){
       <p>Select Additional File (PDF, Word, PPT, Excel) <span>(Optional)</span></p>
       <input type="file" name="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx" class="box">
 
-      <input type="submit" value="Upload Video" name="submit" class="btn">
+      <input type="submit" value="Upload Resource" name="submit" class="btn">
    </form>
 
 </section>

@@ -84,7 +84,7 @@ if(isset($_POST['delete_video'])){
          <h3 class="title"><?= $fecth_videos['title']; ?></h3>
          <form action="" method="post" class="flex-btn">
             <input type="hidden" name="video_id" value="<?= $video_id; ?>">
-            <a href="update_content.php?get_id=<?= $video_id; ?>" class="option-btn">update</a>
+            <!-- <a href="update_content.php?get_id=<?= $video_id; ?>" class="option-btn">update</a> -->
             <input type="submit" value="delete" class="delete-btn" onclick="return confirm('delete this video?');" name="delete_video">
          </form>
          <a href="view_content.php?get_id=<?= $video_id; ?>" class="btn">View Resources</a>

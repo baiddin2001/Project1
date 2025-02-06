@@ -48,34 +48,53 @@ if(isset($_POST['save_list'])){
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Playlist</title>
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+   <link rel="stylesheet" href="css/Subject_student.css">
    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <?php include 'components/user_header.php'; ?>
 
-<section class="videos-container">
-   <h1 class="heading">Playlist Videos</h1>
-   <div class="box-container">
-      <?php
-         $select_content = $conn->prepare("SELECT * FROM `content` WHERE playlist_id = ? AND status = ? ORDER BY date DESC");
+<!-- this is for the video area -->
+<section class="courses1">
+   <h1 class="heading1" style="color: black;">Playlist Videos</h1>
+   
+   <div class="box-container1">
+         <?php
+         $select_content = $conn->prepare("SELECT * FROM `content` WHERE playlist_id = ? AND status = ? AND video IS NOT NULL AND video != '' AND video != 'none' ORDER BY date DESC");
          $select_content->execute([$get_id, 'active']);
+
          if($select_content->rowCount() > 0){
             while($fetch_content = $select_content->fetch(PDO::FETCH_ASSOC)){  
-      ?>
-      <a href="watch_video.php?get_id=<?= $fetch_content['id']; ?>" class="box">
-         <i class="fas fa-play"></i>
-         <img src="uploaded_files/<?= $fetch_content['thumb']; ?>" alt="">
-         <h3><?= $fetch_content['title']; ?></h3>
-      </a>
-      <?php
-            }
-         }else{
-            echo '<p class="empty">No videos added yet!</p>';
-         }
-      ?>
+               
+               $select_tutor = $conn->prepare("SELECT * FROM `tutors` WHERE id = ?");
+               $select_tutor->execute([$fetch_content['tutor_id']]);
+               $fetch_tutor = $select_tutor->fetch(PDO::FETCH_ASSOC);
+         ?>
+         <div class="box-container1">
+            <div class="box1">
+               <div class="tutor1">
+                  <img src="uploaded_files/<?= $fetch_tutor['image']; ?>" alt="">
+                  <div>
+                     <h3 style="color: black;"> <?= $fetch_tutor['name']; ?> </h3>
+                     <span><?= $fetch_content['date']; ?></span>
+                  </div>
+               </div>
+               <img src="uploaded_files/<?= $fetch_content['thumb']; ?>" class="thumb1" alt="">
+               <h3 style="color: black;" class="title1"> <?= $fetch_content['title']; ?> </h3>
+               <a href="watch_video.php?get_id=<?= $fetch_content['id']; ?>" class="inline-btn1">Watch Video</a>
+            </div>
+         </div>
+         <?php
+      }
+   } else {
+      echo '<p class="empty1">No videos added yet!</p>';
+   }
+?>
+
    </div>
 </section>
+
 
 <!-- Downloadable Files Section -->
 <section class="files-container">
