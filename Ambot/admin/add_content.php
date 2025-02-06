@@ -1,5 +1,4 @@
 <?php
-
 include '../components/connect.php';
 
 if(isset($_COOKIE['tutor_id'])){
@@ -27,42 +26,59 @@ if(isset($_POST['submit'])){
    $thumb_folder = '../uploaded_files/'.$rename_thumb;
 
    // Video Upload
-   // Video Upload
    $video = $_FILES['video']['name'];
-      if(empty($video)) {
-         // No video uploaded, set to 'none'
-         $rename_video = 'none';
-         $video_tmp_name = ''; 
-         $video_folder = ''; 
-      } else {
-         $video = filter_var($video, FILTER_SANITIZE_STRING);
-         $video_ext = pathinfo($video, PATHINFO_EXTENSION);
-         $rename_video = unique_id().'.'.$video_ext;
-         $video_tmp_name = $_FILES['video']['tmp_name'];
-         $video_folder = '../uploaded_files/'.$rename_video;
-      }
-   // File Upload (Word, PDF, PPT, Excel)
-   $file = $_FILES['file']['name'];
-   $file = filter_var($file, FILTER_SANITIZE_STRING);
-   $file_ext = pathinfo($file, PATHINFO_EXTENSION);
-   $rename_file = unique_id().'.'.$file_ext;
-   $file_tmp_name = $_FILES['file']['tmp_name'];
-   $file_folder = '../uploaded_files/'.$rename_file;
-
-   $allowed_extensions = ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx'];
-
-   if($thumb_size > 2000000){
-      $message[] = 'Image size is too large!';
-   } elseif (!empty($file) && !in_array($file_ext, $allowed_extensions)) {
-      $message[] = 'Invalid file type! Allowed: PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX.';
+   if(empty($video)) {
+      $rename_video = 'none';
+      $video_tmp_name = ''; 
+      $video_folder = ''; 
    } else {
-      $add_content = $conn->prepare("INSERT INTO `content`(id, tutor_id, playlist_id, title, description, video, thumb, file, status) VALUES(?,?,?,?,?,?,?,?,?)");
-      $add_content->execute([$id, $tutor_id, $playlist, $title, $description, $rename_video, $rename_thumb, $rename_file, $status]);
+      $video = filter_var($video, FILTER_SANITIZE_STRING);
+      $video_ext = pathinfo($video, PATHINFO_EXTENSION);
+      $rename_video = unique_id().'.'.$video_ext;
+      $video_tmp_name = $_FILES['video']['tmp_name'];
+      $video_folder = '../uploaded_files/'.$rename_video;
+   }
+
+   // File Upload (PDF, Word, PPT, Excel)
+   $file = $_FILES['file']['name'];
+   $file_tmp_name = $_FILES['file']['tmp_name'];
+   $rename_file = '';
+
+   if (!empty($file)) {
+      $file = filter_var($file, FILTER_SANITIZE_STRING);
+      $file_ext = pathinfo($file, PATHINFO_EXTENSION);
+      $rename_file = unique_id().'.'.$file_ext;
+      $file_folder = '../uploaded_files/'.$rename_file;
+
+      $allowed_extensions = ['pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx'];
+
+      if (in_array($file_ext, $allowed_extensions)) {
+         move_uploaded_file($file_tmp_name, $file_folder);
+      } else {
+         $rename_file = ''; // Invalid file, don't include in the database
+      }
+   }
+
+   if ($thumb_size > 2000000) {
+      $message[] = 'Image size is too large!';
+   } else {
+      // Prepare SQL query dynamically
+      $sql = "INSERT INTO content (id, tutor_id, playlist_id, title, description, video, thumb, status";
+      $params = [$id, $tutor_id, $playlist, $title, $description, $rename_video, $rename_thumb, $status];
+
+      if (!empty($rename_file)) {
+         $sql .= ", file";
+         $params[] = $rename_file;
+      }
+
+      $sql .= ") VALUES (" . implode(",", array_fill(0, count($params), "?")) . ")";
+
+      $add_content = $conn->prepare($sql);
+      $add_content->execute($params);
 
       move_uploaded_file($thumb_tmp_name, $thumb_folder);
       move_uploaded_file($video_tmp_name, $video_folder);
-      move_uploaded_file($file_tmp_name, $file_folder);
-      
+
       $message[] = 'New course uploaded!';
    }
 }

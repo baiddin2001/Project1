@@ -101,7 +101,8 @@ if(isset($_POST['save_list'])){
    <h1 class="heading">Downloadable Files</h1>
    <div class="box-container">
       <?php
-         $select_files = $conn->prepare("SELECT * FROM `content` WHERE playlist_id = ? AND file IS NOT NULL AND file != ''");
+         $select_files = $conn->prepare("SELECT * FROM content WHERE playlist_id = ? AND file IS NOT NULL AND file != '' AND file != 'none'");
+
          $select_files->execute([$get_id]);
          if($select_files->rowCount() > 0){
             while($fetch_file = $select_files->fetch(PDO::FETCH_ASSOC)){  
