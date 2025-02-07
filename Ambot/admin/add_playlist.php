@@ -28,6 +28,8 @@ if (isset($_POST['submit'])) {
     $description = filter_var($description, FILTER_SANITIZE_STRING);
     $status = $_POST['status'];
     $status = filter_var($status, FILTER_SANITIZE_STRING);
+    $class = $_POST['class'];
+    $class = filter_var($class, FILTER_SANITIZE_STRING);
 
     // Image upload
     $image = $_FILES['image']['name'];
@@ -38,8 +40,8 @@ if (isset($_POST['submit'])) {
     $image_folder = '../uploaded_files/' . $rename;
 
     // Insert into database with strand
-    $add_playlist = $conn->prepare("INSERT INTO `playlist` (id, tutor_id, title, description, thumb, status, strand) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $add_playlist->execute([$id, $tutor_id, $title, $description, $rename, $status, $strand]);
+    $add_playlist = $conn->prepare("INSERT INTO `playlist` (id, tutor_id, title, description, thumb, status, strand, class) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $add_playlist->execute([$id, $tutor_id, $title, $description, $rename, $status, $strand, $class]);
 
     move_uploaded_file($image_tmp_name, $image_folder);
 
@@ -69,17 +71,24 @@ if (isset($_POST['submit'])) {
    <h1 class="heading">Create Subject for <?= htmlspecialchars($strand); ?></h1>
 
    <form action="add_playlist.php?strand=<?= urlencode($strand); ?>" method="post" enctype="multipart/form-data">
-      <p>Subject status <span>*</span></p>
+      <p>Subject Status <span>*</span></p>
       <select name="status" class="box" required>
          <option value="" selected disabled>-- Select Status --</option>
          <option value="active">Active</option>
          <option value="deactive">Deactive</option>
       </select>
+      <p>Select Class <span>*</span></p>
+      <select name="class" class="box" required>
+         <option value="" selected disabled>-- Select Class --</option>
+         <option value="class1">Class 1</option>
+         <option value="class2">Class 2</option>
+         <option value="class3">Class 3</option>
+      </select>
       <p>Subject title <span>*</span></p>
       <input type="text" name="title" maxlength="100" required placeholder="Enter Subject Title" class="box">
       <p>Subject description <span>*</span></p>
       <textarea name="description" class="box" required placeholder="Write Description" maxlength="1000" cols="30" rows="10"></textarea>
-      <p>Subject thumbnail <span>*</span></p>
+      <p>Subject Cover <span>*</span></p>
       <input type="file" name="image" accept="image/*" required class="box">
       <input type="submit" value="Create Subject" name="submit" class="btn">
    </form>
