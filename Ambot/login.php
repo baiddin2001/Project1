@@ -36,8 +36,8 @@ if(isset($_POST['submit_signup'])){
    $name = filter_var($name, FILTER_SANITIZE_STRING);
    $email = $_POST['email'];
    $email = filter_var($email, FILTER_SANITIZE_STRING);
-   $class = $_POST['class'];
-   $class = filter_var($class, FILTER_SANITIZE_STRING);
+   $strand = $_POST['strand'];
+   $strand = filter_var($strand, FILTER_SANITIZE_STRING);
    $pass = sha1($_POST['pass']);
    $pass = filter_var($pass, FILTER_SANITIZE_STRING);
    $cpass = sha1($_POST['cpass']);
@@ -60,8 +60,8 @@ if(isset($_POST['submit_signup'])){
       if($pass != $cpass){
          $message[] = 'confirm password not matched!';
       }else{
-         $insert_user = $conn->prepare("INSERT INTO `users`(id, name, email, class, password, image) VALUES(?,?,?,?,?,?)");
-         $insert_user->execute([$id, $name, $email, $class, $cpass, $rename]);
+         $insert_user = $conn->prepare("INSERT INTO `users`(id, name, email, password, image, strand) VALUES(?,?,?,?,?,?)");
+         $insert_user->execute([$id, $name, $email, $cpass, $rename, $strand]);
          move_uploaded_file($image_tmp_name, $image_folder);
          
          $verify_user = $conn->prepare("SELECT * FROM `users` WHERE email = ? AND password = ? LIMIT 1");
@@ -94,8 +94,8 @@ if(isset($_POST['submit_signup'])){
          <span class="span1">Create your account and begin your academic journey today!</span>
          <input type="text" name="name" placeholder="Enter your Name" maxlength="50" required>
          <input type="email" name="email" placeholder="Enter your Email" maxlength="100" required>
-         <select name="class" required>
-            <option value="">Select Your Class</option>
+         <select name="strand" required>
+            <option value="">Select Your Strand</option>
             <option value="ICT">ICT</option>
             <option value="HUMMS">HUMMS</option>
          </select>
